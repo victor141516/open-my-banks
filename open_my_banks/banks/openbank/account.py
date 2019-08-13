@@ -77,26 +77,9 @@ class OpenBankAccountInfo(base.BaseAccountInfo):
             balance_after = operation["saldo"]["importe"]
             date = datetime.datetime.strptime(operation["fechaOperacion"], "%Y-%m-%d")
             is_receipt = operation["recibo"]
-            if amount >= 0:
-                yield base.Operation(
-                    concept,
-                    amount,
-                    category,
-                    balance_after,
-                    date,
-                    is_receipt,
-                    operation,
-                )
-            else:
-                yield base.Operation(
-                    concept,
-                    amount,
-                    category,
-                    balance_after,
-                    date,
-                    is_receipt,
-                    operation,
-                )
+            yield base.Operation(
+                concept, amount, category, balance_after, date, is_receipt, operation
+            )
 
         next_url = res.get("_links", {}).get("nextPage", {}).get("href")
         if res.get("masMovimientos", False) and next_url:
