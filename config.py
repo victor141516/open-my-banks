@@ -1,6 +1,10 @@
 import json
+import os
 
-with open("config.json") as f:
+
+CONFIG_PATH = os.environ.get("CONFIG_PATH", "config.json")
+
+with open(CONFIG_PATH) as f:
     config = json.load(f)
 
 REMOTE_SELENIUM_URL = config.get("REMOTE_SELENIUM_URL", "http://localhost:4444/wd/hub")
